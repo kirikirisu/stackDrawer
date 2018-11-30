@@ -9,7 +9,9 @@ export default class App extends Component{
         <SearchBar
           round
           placeholder="観光地を検索"
-          containerStyle={{width:270,backgroundColor:"#FA58F4",borderTopWidth:0,borderBottomWidth:0,marginLeft:70}}
+          containerStyle={{width:270,backgroundColor:"white",borderTopWidth:0,borderBottomWidth:0,marginLeft:70}}
+          inputStyle={{backgroundColor:"#F8FBEF"}}
+          returnKeyType="done"
         />
       </View>
     )
@@ -19,7 +21,6 @@ export default class App extends Component{
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:"#fff",
     justifyContent:"center"
   },
 });

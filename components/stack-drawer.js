@@ -1,12 +1,11 @@
 import React from "react";
 import Stack from "./stack";
 import SubScreen from "./subscreen";
-import { StyleSheet, ScrollView, View,  } from "react-native";
+import { StyleSheet, ScrollView, View, KeyboardAvoidingView } from "react-native";
 import { createDrawerNavigator, createAppContainer, DrawerItems, SafeAreaView } from "react-navigation";
 import SearchBar from "./searchbar";
 import Icon from 'react-native-vector-icons/AntDesign';
 import FlatList from "./flatlist";
-//import BackIcon from "./back-icon";
 
 /*const CustomDrawerContentComponent = (props) => (
   <ScrollView>
@@ -27,40 +26,47 @@ const styles = StyleSheet.create({
 const AppNavigator = createDrawerNavigator(
   {
     Home: { screen: Stack, },
-    SUB:{screen:SubScreen}
+    SUB: { screen: SubScreen }
   },
   {
-    drawerWidth: 340,
-    drawerBackgroundColor: "#FA58F4",
+    drawerWidth: 350,
+    drawerBackgroundColor: "white",
     drawerType: "front",
-    contentComponent: props =>
-      <ScrollView>
-      <View style={styles.searchIcon}>
-        <SearchBar />
-        <Icon 
-          name="left"
-          size={37}
-          style={styles.icon}
-        />
+    contentComponent: ({ props, navigation }) =>
+      <View>
+        <View style={styles.searchIcon}>
+            <SearchBar
+              style={styles.searchbar}
+            />
+          <Icon
+            name="left"
+            size={35}
+            style={styles.icon}
+            onPress={() => navigation.closeDrawer()}
+          />
+        </View>
+        <ScrollView>
+          <FlatList />
+        </ScrollView>
       </View>
-        <FlatList />
-        <DrawerItems {...props} />
-      </ScrollView>
   }
 );
 
+const AppContainer = createAppContainer(AppNavigator);
+export default AppContainer;
+
 const styles = StyleSheet.create({
   searchIcon: {
-    flexDirection:"row",
-    marginTop:20,
+    flexDirection: "row",
+    marginTop: 30,
   },
-  icon:{
-    marginRight:300,
-    paddingLeft:20,
-    paddingTop:5,
+  searchbar: {
+    zIndex: 3,
+  },
+  icon: {
+    marginRight: 285,
+    paddingRight: 18,
+    paddingTop: 5,
+    zIndex: -3
   }
 });
-
-const AppContainer = createAppContainer(AppNavigator);
-
-export default AppContainer;
