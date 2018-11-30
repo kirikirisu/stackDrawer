@@ -10,6 +10,8 @@ export default class App extends Component{
           round
           placeholder="観光地を検索"
           containerStyle={{width:270,backgroundColor:"white",borderTopWidth:0,borderBottomWidth:0,marginLeft:70}}
+          inputStyle={{backgroundColor:"#F8FBEF"}}
+          returnKeyType="done"
         />
       </View>
     )

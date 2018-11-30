@@ -1,7 +1,7 @@
 import React from "react";
 import Stack from "./stack";
 import SubScreen from "./subscreen";
-import { StyleSheet, ScrollView, View, } from "react-native";
+import { StyleSheet, ScrollView, View, KeyboardAvoidingView } from "react-native";
 import { createDrawerNavigator, createAppContainer, DrawerItems, SafeAreaView } from "react-navigation";
 import SearchBar from "./searchbar";
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -33,20 +33,22 @@ const AppNavigator = createDrawerNavigator(
     drawerBackgroundColor: "white",
     drawerType: "front",
     contentComponent: ({ props, navigation }) =>
-      <ScrollView>
+      <View>
         <View style={styles.searchIcon}>
-            <SearchBar 
+            <SearchBar
               style={styles.searchbar}
             />
-            <Icon
-              name="left"
-              size={35}
-              style={styles.icon}
-              onPress={() => navigation.closeDrawer()}
-            />
+          <Icon
+            name="left"
+            size={35}
+            style={styles.icon}
+            onPress={() => navigation.closeDrawer()}
+          />
         </View>
-        <FlatList />
-      </ScrollView>
+        <ScrollView>
+          <FlatList />
+        </ScrollView>
+      </View>
   }
 );
 
@@ -58,13 +60,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 30,
   },
-  searchbar:{
-    zIndex:3,
+  searchbar: {
+    zIndex: 3,
   },
   icon: {
     marginRight: 285,
-    paddingRight:18,
+    paddingRight: 18,
     paddingTop: 5,
-    zIndex:-3
+    zIndex: -3
   }
 });
