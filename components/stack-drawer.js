@@ -1,33 +1,43 @@
 import React from "react";
 import Stack from "./stack";
-import { StyleSheet, ScrollView, View, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, ScrollView, View, FlatList, Text,Alert} from "react-native";
 import { createDrawerNavigator, createAppContainer, DrawerItems, SafeAreaView } from "react-navigation";
 import Icon from 'react-native-vector-icons/AntDesign';
-import FlatList from "./flatlist";
 import { SearchBar } from "react-native-elements";
 
-/*const CustomDrawerContentComponent = (props) => (
-  <ScrollView>
-    <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-      <SearchBar />
-      <DrawerItems {...props} />
-    </SafeAreaView>
-  </ScrollView>
-);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-*/
 
 class Custom extends React.Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      kankoudata: null,
+      filterText: "",
+    }
   }
+
+  componentWillMount() {
+    this._fetch();
+  }
+
+  _keyExtractor = (item) => item.id;
+
+  _fetch = () => {
+    fetch("https://infra-api.city.kanazawa.ishikawa.jp/facilities/search.json?lang=ja&page=1&count=50&area=1&genre=1")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ kankoudata: responseJson["facilities"] });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+    const filterText = this.state.filterText
+    let kankoudata = this.state.kankoudata
+    if (filterText !== "") {
+      kankoudata = kankoudata.filter(t => t.name.includes(filterText))
+    }
     return (
       <View>
         <View style={styles.searchAndIcon}>
@@ -43,10 +53,24 @@ class Custom extends React.Component {
             containerStyle={{ width: 270, backgroundColor: "white", borderTopWidth: 0, borderBottomWidth: 0, marginLeft: 20 }}
             inputStyle={{ backgroundColor: "#F8FBEF" }}
             returnKeyType="done"
+            onChangeText={(text) => this.setState({ filterText: text })}
           />
         </View>
         <ScrollView>
-          <FlatList />
+          <FlatList
+            data={kankoudata}
+            keyExtractor={this._keyExtractor}
+            renderItem={({ item }) =>
+              <View style={styles.kankouview}>
+                <Text
+                  style={styles.kankoutext}
+                  onPress={() => Alert.alert("観光地のピンに遷移する予定")}
+                >
+                  {item.name}
+                </Text>
+              </View>
+            }
+          />
         </ScrollView>
       </View>
     );
@@ -77,4 +101,13 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginLeft: 10,
   },
+  kankouview: {
+    padding: 10,
+    borderStyle: 'solid',
+    borderBottomWidth: 1,
+  },
+  kankoutext: {
+    fontSize: 16,
+    lineHeight: 25,
+  }
 });
