@@ -1,11 +1,10 @@
 import React from "react";
 import Stack from "./stack";
-import SubScreen from "./subscreen";
 import { StyleSheet, ScrollView, View, KeyboardAvoidingView } from "react-native";
 import { createDrawerNavigator, createAppContainer, DrawerItems, SafeAreaView } from "react-navigation";
-import SearchBar from "./searchbar";
 import Icon from 'react-native-vector-icons/AntDesign';
 import FlatList from "./flatlist";
+import { SearchBar } from "react-native-elements";
 
 /*const CustomDrawerContentComponent = (props) => (
   <ScrollView>
@@ -23,32 +22,46 @@ const styles = StyleSheet.create({
 });
 */
 
-const AppNavigator = createDrawerNavigator(
-  {
-    Home: { screen: Stack, },
-    SUB: { screen: SubScreen }
-  },
-  {
-    drawerWidth: 350,
-    drawerBackgroundColor: "white",
-    drawerType: "front",
-    contentComponent: ({ props, navigation }) =>
+class Custom extends React.Component {
+  constructor(props) {
+    super(props)
+
+  }
+  render() {
+    return (
       <View>
-        <View style={styles.searchIcon}>
-            <SearchBar
-              style={styles.searchbar}
-            />
+        <View style={styles.searchAndIcon}>
           <Icon
             name="left"
             size={35}
+            onPress={() => this.props.navigation.closeDrawer()}
             style={styles.icon}
-            onPress={() => navigation.closeDrawer()}
+          />
+          <SearchBar
+            round
+            placeholder="観光地を検索"
+            containerStyle={{ width: 270, backgroundColor: "white", borderTopWidth: 0, borderBottomWidth: 0, marginLeft: 20 }}
+            inputStyle={{ backgroundColor: "#F8FBEF" }}
+            returnKeyType="done"
           />
         </View>
         <ScrollView>
           <FlatList />
         </ScrollView>
       </View>
+    );
+  }
+}
+
+const AppNavigator = createDrawerNavigator(
+  {
+    Home: { screen: Stack, },
+  },
+  {
+    drawerWidth: 350,
+    drawerBackgroundColor: "white",
+    drawerType: "front",
+    contentComponent: Custom,
   }
 );
 
@@ -56,17 +69,12 @@ const AppContainer = createAppContainer(AppNavigator);
 export default AppContainer;
 
 const styles = StyleSheet.create({
-  searchIcon: {
+  searchAndIcon: {
     flexDirection: "row",
     marginTop: 30,
   },
-  searchbar: {
-    zIndex: 3,
-  },
   icon: {
-    marginRight: 285,
-    paddingRight: 18,
-    paddingTop: 5,
-    zIndex: -3
-  }
+    marginTop: 6,
+    marginLeft: 10,
+  },
 });
