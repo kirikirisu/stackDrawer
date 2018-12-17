@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
+import { withNavigation } from 'react-navigation';
 import SearchIcon from "react-native-vector-icons/AntDesign";
 
 const HeaderLeft = ({ navigation }) => (
@@ -12,4 +13,4 @@ const HeaderLeft = ({ navigation }) => (
   </TouchableOpacity>
 );
 
-export default HeaderLeft;
+export default withNavigation(HeaderLeft);

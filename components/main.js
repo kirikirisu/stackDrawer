@@ -12,8 +12,8 @@ import HeaderRight from './headerRight';
 export default class App extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "MainScreen",
-    headerLeft: <HeaderLeft navigation={navigation} />,
-    headerRight: <HeaderRight navigation={navigation} />,
+    headerLeft: <HeaderLeft />,
+    headerRight: <HeaderRight />,
   });
 
   render() {

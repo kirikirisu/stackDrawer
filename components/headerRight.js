@@ -1,8 +1,9 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
+import { withNavigation } from 'react-navigation';
 import CalendarIcon from "react-native-vector-icons/EvilIcons";
 
-const headerRight = ({ navigation }) => (
+const HeaderRight = ({ navigation }) => (
   <TouchableOpacity>
     <CalendarIcon
       name="calendar"
@@ -12,4 +13,4 @@ const headerRight = ({ navigation }) => (
   </TouchableOpacity>
 );
 
-export  default headerRight;
+export  default withNavigation(HeaderRight);
