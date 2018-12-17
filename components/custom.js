@@ -1,8 +1,8 @@
 import React from "react";
+import { View, ScrollView, Text, StyleSheet, FlatList } from "react-native";
+import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { SearchBar } from "react-native-elements";
-import { View, ScrollView, Text, StyleSheet, FlatList } from "react-native";
-import MapView from "react-native-maps";
 
 class Custom extends React.Component {
   constructor(props) {
@@ -28,17 +28,17 @@ class Custom extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   render() {
-    const filterText = this.state.filterText
-    let kankoudata = this.state.kankoudata
+    const filterText = this.state.filterText;
+    let kankoudata = this.state.kankoudata;
     if (filterText !== "") {
       kankoudata = kankoudata.filter(t => t.name.includes(filterText))
     }
 
     return (
-      <View>
+      <SafeAreaView>
         <View style={styles.searchAndIcon}>
           <Icon
             name="left"
@@ -49,15 +49,18 @@ class Custom extends React.Component {
           <SearchBar
             round
             placeholder="観光地を検索"
-            containerStyle={{ width: 270, backgroundColor: "white", borderTopWidth: 0, borderBottomWidth: 0, marginLeft: 20 }}
+            containerStyle={{
+              width: 270,
+              backgroundColor: "white",
+              borderTopWidth: 0,
+              borderBottomWidth: 0,
+              marginLeft: 20
+            }}
             inputStyle={{ backgroundColor: "#F8FBEF" }}
             returnKeyType="done"
             onChangeText={(text) => this.setState({ filterText: text })}
           />
         </View>
-        <MapView
-          ref={ref => { this.mapView = ref }}
-        />
         <ScrollView>
           <FlatList
             data={kankoudata}
@@ -67,9 +70,9 @@ class Custom extends React.Component {
                 <Text
                   style={styles.kankoutext}
                   onPress={() => this.mapView.animateToRegion({
-                    latitude: 36.558945,
-                    longitude: 136.652489
-                  },
+                      latitude: 36.558945,
+                      longitude: 136.652489
+                    },
                     1000
                   )}
                 >
@@ -79,7 +82,7 @@ class Custom extends React.Component {
             }
           />
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }
