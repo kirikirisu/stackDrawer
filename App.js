@@ -1,2 +1,8 @@
-import StackDrawer from "./components/stack-drawer";
-export default StackDrawer;
+import React from "react";
+import Drawer from "./components/drawer";
+
+const App = () => (
+  <Drawer />
+);
+
+export default App;

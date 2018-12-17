@@ -6,7 +6,7 @@ import MapView from "react-native-maps";
 
 class Custom extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       kankoudata: null,
       filterText: "",
@@ -36,6 +36,7 @@ class Custom extends React.Component {
     if (filterText !== "") {
       kankoudata = kankoudata.filter(t => t.name.includes(filterText))
     }
+
     return (
       <View>
         <View style={styles.searchAndIcon}>
