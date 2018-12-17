@@ -1,6 +1,6 @@
 import React from "react";
-import Stack from "./stack";
 import { createDrawerNavigator, createAppContainer } from "react-navigation";
+import Stack from "./stack";
 import Custom from "./custom";
 
 const AppNavigator = createDrawerNavigator(

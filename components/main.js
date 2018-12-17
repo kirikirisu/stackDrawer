@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import MapView from "react-native-maps";
+import HeaderLeft from './headerLeft';
+import HeaderRight from './headerRight';
 
 /*let region = {
  latitude:36.558945 ,
  longitude: 136.652489
-}
-*/
+ }
+ */
 export default class App extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "MainScreen",
+    headerLeft: <HeaderLeft navigation={navigation} />,
+    headerRight: <HeaderRight navigation={navigation} />,
+  });
+
   render() {
     return (
       <View style={styles.container}>
