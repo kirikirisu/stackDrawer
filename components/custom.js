@@ -31,6 +31,7 @@ class Custom extends React.Component {
   };
 
   render() {
+    const { navigation } = this.props;
     const filterText = this.state.filterText;
     let kankoudata = this.state.kankoudata;
     if (filterText !== "") {
@@ -43,7 +44,7 @@ class Custom extends React.Component {
           <Icon
             name="left"
             size={35}
-            onPress={() => this.props.navigation.closeDrawer()}
+            onPress={() => navigation.closeDrawer()}
             style={styles.icon}
           />
           <SearchBar
@@ -69,12 +70,10 @@ class Custom extends React.Component {
               <View style={styles.kankouview}>
                 <Text
                   style={styles.kankoutext}
-                  onPress={() => this.mapView.animateToRegion({
-                      latitude: 36.558945,
-                      longitude: 136.652489
-                    },
-                    1000
-                  )}
+                  onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('Dist', { dist: item });
+                  }}
                 >
                   {item.name}
                 </Text>
