@@ -1,12 +1,12 @@
 import React from "react";
+import { View, ScrollView, Text, StyleSheet, FlatList } from "react-native";
+import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { SearchBar } from "react-native-elements";
-import { View, ScrollView, Text, StyleSheet, FlatList } from "react-native";
-import MapView from "react-native-maps";
 
 class Custom extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       kankoudata: null,
       filterText: "",
@@ -28,35 +28,40 @@ class Custom extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   render() {
-    const filterText = this.state.filterText
-    let kankoudata = this.state.kankoudata
+    const { navigation } = this.props;
+    const filterText = this.state.filterText;
+    let kankoudata = this.state.kankoudata;
     if (filterText !== "") {
       kankoudata = kankoudata.filter(t => t.name.includes(filterText))
     }
+
     return (
-      <View>
+      <SafeAreaView>
         <View style={styles.searchAndIcon}>
           <Icon
             name="left"
             size={35}
-            onPress={() => this.props.navigation.closeDrawer()}
+            onPress={() => navigation.closeDrawer()}
             style={styles.icon}
           />
           <SearchBar
             round
             placeholder="観光地を検索"
-            containerStyle={{ width: 270, backgroundColor: "white", borderTopWidth: 0, borderBottomWidth: 0, marginLeft: 20 }}
+            containerStyle={{
+              width: 270,
+              backgroundColor: "white",
+              borderTopWidth: 0,
+              borderBottomWidth: 0,
+              marginLeft: 20
+            }}
             inputStyle={{ backgroundColor: "#F8FBEF" }}
             returnKeyType="done"
             onChangeText={(text) => this.setState({ filterText: text })}
           />
         </View>
-        <MapView
-          ref={ref => { this.mapView = ref }}
-        />
         <ScrollView>
           <FlatList
             data={kankoudata}
@@ -65,12 +70,10 @@ class Custom extends React.Component {
               <View style={styles.kankouview}>
                 <Text
                   style={styles.kankoutext}
-                  onPress={() => this.mapView.animateToRegion({
-                    latitude: 36.558945,
-                    longitude: 136.652489
-                  },
-                    1000
-                  )}
+                  onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('Dist', { dist: item });
+                  }}
                 >
                   {item.name}
                 </Text>
@@ -78,7 +81,7 @@ class Custom extends React.Component {
             }
           />
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

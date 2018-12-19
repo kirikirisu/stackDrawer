@@ -5,9 +5,13 @@ import MapView from "react-native-maps";
 /*let region = {
  latitude:36.558945 ,
  longitude: 136.652489
-}
-*/
-export default class App extends Component {
+ }
+ */
+class Main extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "MainScreen",
+  });
+
   render() {
     return (
       <View style={styles.container}>
@@ -21,7 +25,6 @@ export default class App extends Component {
             longitudeDelta: 0.00521,
           }}
         >
-
           <MapView.Marker
             coordinate={{
               latitude: 35.681262,
@@ -30,8 +33,6 @@ export default class App extends Component {
             title="東京駅"
           />
         </MapView>
-
-
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.mapView.animateToRegion({
@@ -77,3 +78,5 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
 });
+
+export default Main;

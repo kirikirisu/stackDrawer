@@ -1,2 +1,11 @@
-import StackDrawer from "./components/stack-drawer";
-export default StackDrawer;
+import React from "react";
+import { createAppContainer } from "react-navigation";
+import Drawer from "./components/drawer";
+
+const AppContainer = createAppContainer(Drawer);
+
+const App = () => (
+  <AppContainer />
+);
+
+export default App;
